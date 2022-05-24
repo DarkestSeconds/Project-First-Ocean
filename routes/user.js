@@ -169,7 +169,7 @@ var log = arr => {
 };
 
 router.get('/chat', (req, res) => {
-    if (!req.user) return res.redirect
+    if (!req.user) return res.redirect('/login')
 
     console.log('io')
 
