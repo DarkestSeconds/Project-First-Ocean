@@ -110,11 +110,9 @@ button {
 }
 
 .custom-btn {
-  font-size: 14px;
-  padding-right: 20px;
-  padding-left: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  width: 130px;
+  height: 48px;
+  padding: 10px 25px;
   border: 3px solid rgb(69, 5, 90);
   font-weight: 500;
   background: transparent;
@@ -122,7 +120,7 @@ button {
   transition: all 0.3s ease;
   position: relative;
   display: inline-block;
-
+  
 
 }
 
