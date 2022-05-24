@@ -1,0 +1,50 @@
+<section class="container bgDarkChat w-100 p-3" id="sectionTotal">
+
+    <h3><li id="otherUser">Conversando</li></h3>
+    <input type="hidden" id="user" name="user" value="{{user.usuario}}">
+    <input type="hidden" id="userImg" name="userImg" value="{{user.imgPerfil}}">
+    <hr>
+
+    <section class="gradient-custom">
+        <form id="chat">
+            <div class="container py-5" style="max-height: 800px;">
+
+                <div class="row">
+
+
+
+                    <div class="container col-md-6 col-lg-7 col-xl-7">
+
+                        <section id="messagesSec">
+
+                            </section>
+
+
+                        <ul class="list-unstyled text-white">
+
+                            <li class="mb-3">
+                                <div class="form-outline">
+                                    <textarea class="form-control rounded-2 bg-dark customTextArea"
+                                        id="textArea" rows="4"></textarea>
+                                </div>
+                            </li>
+                            <input type="submit" class="btn btn-dark btn-lg btn-rounded float-end" value="Enviar">
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+    </section>
+
+
+
+</section>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script defer src="src/chat.js">
+</script>

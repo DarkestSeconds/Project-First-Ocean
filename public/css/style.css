@@ -1,0 +1,284 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri&display=swap');
+
+* {
+  scroll-behavior: smooth;
+  color: aliceblue !important;
+  font-family: 'Amiri', serif;
+}
+
+
+body {
+  background-color: #1a192c !important;
+  background-repeat: no-repeat;
+  background-position: center;
+
+}
+
+
+
+.Mydropdown {
+  position: relative;
+  display: inline-block;
+  color: rgb(50, 50, 51);
+}
+
+
+.Mydropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #282727;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.Mydropdown:hover .Mydropdown-content {
+  display: block;
+  margin-top: 45px;
+  background-color: #323232;
+
+}
+
+li .dropdown-item:hover {
+  background-color: #434242;
+}
+
+
+
+/* REGISTER AND LOGIN STYLE*/
+
+
+/*ALERTS*/
+.myBgDark {
+  background-color: rgb(82, 5, 121) !important;
+  border-color: black !important;
+}
+
+
+.mySection {
+  box-shadow: 0px 8px 16px 16px rgba(0, 0, 0, 0.389);
+
+
+}
+
+.formRL {
+  text-align: center;
+
+}
+
+.formRL label {
+  font-size: 16px;
+  padding-top: 15px;
+}
+
+.formRL input {
+  background: none !important;
+  outline: 0;
+  border: 0;
+  border-bottom: 2px solid blueviolet;
+  border-radius: 2px;
+  text-decoration: none;
+  width: 140px;
+  height: 25px;
+}
+
+.formRL input[type="radio"] {
+  margin: 10px;
+  height: 15px;
+  width: 15px;
+}
+
+.formRL .labelRadio {
+  color: aliceblue !important;
+  padding: 0px !important;
+}
+
+.formRL .PhotoSelect {
+  display: inline-block;
+}
+
+.formRL .imgP {
+  padding: 8px;
+
+}
+
+
+button {
+  margin: 20px;
+  outline: none;
+}
+
+.custom-btn {
+  width: 130px;
+  height: 40px;
+  padding: 10px 25px;
+  border: 3px solid rgb(69, 5, 90);
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+
+}
+
+.btn-register {
+  padding: 0;
+}
+
+.btn-center {
+  padding: 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+
+.btn-center a {
+  text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* CHAT STYLE*/
+
+
+.bgDarkChat {
+  margin-bottom: 50px;
+  background-color: black;
+  box-sizing: border-box;
+  height: 100%;
+  max-height: 800px;
+
+  background: rgba(0, 0, 0, 0.355);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(30, 26, 26, 0.3);
+}
+
+
+
+#messagesSec {
+  position: relative;
+  overflow-y: scroll;
+  max-height: 400px;
+
+
+}
+
+#messagesSec::-webkit-scrollbar {
+  width: 12px;
+}
+
+#messagesSec::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#messagesSec::-webkit-scrollbar-thumb {
+  background-color: rgb(50, 50, 51);
+  border-radius: 20px;
+  border: 3px solid rgb(60, 60, 60);
+}
+
+.gradient-custom {
+  background: rgba(51, 0, 57, 0.355);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(30, 26, 26, 0.3);
+}
+
+.mask-custom {
+  background: rgba(24, 24, 16, 0.913);
+  border-radius: 2em;
+  backdrop-filter: blur(15px);
+  border: 2px solid rgba(0, 0, 0, 0.873);
+  background-clip: padding-box;
+  box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+}
+
+
+
+.customTextArea {
+  resize: none;
+}
+
+#newChatButtonDiv {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#newChatBtn {
+  line-height: 50px;
+  height: 50px;
+  text-align: center;
+  width: 250px;
+  cursor: pointer;
+
+  color: #FFF;
+  transition: all 0.5s;
+  position: relative;
+
+}
+
+#newChatBtn span {
+  z-index: 2;
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+#newChatBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  transition: all 0.5s;
+  border: 1px solid rgba(113, 4, 106, 0.89);
+  background-color: rgba(56, 29, 29, 0.665);
+}
+
+#newChatBtn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  transition: all 0.5s;
+  border: 1px solid rgba(113, 4, 106, 0.89);
+  background-color: rgba(56, 29, 29, 0.665);
+}
+
+#newChatBtn:hover::before {
+  transform: rotate(-45deg);
+  background-color: rgba(255, 255, 255, 0);
+}
+
+#newChatBtn:hover::after {
+  transform: rotate(45deg);
+  background-color: rgba(255, 255, 255, 0);
+}

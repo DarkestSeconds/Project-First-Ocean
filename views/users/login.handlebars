@@ -1,0 +1,27 @@
+{{#if user}}
+
+{{else}}
+
+<section class="container bg-dark w-50 p-4 mt-5 user-select-none">
+    <h3 class="text-center display-4">Login</h3>
+    <img class="rounded mx-auto d-block" src="img/formRL/squirrel.gif" alt="" height="65">
+    <form class="formRL" action="/login" method="post">
+        <label for="username">Usuário:</label>
+        <br>
+        <input type="text" name="username" id="username" placeholder="Digite o usuário." required>
+        <br>
+        <label for="password">Senha:</label>
+        <br>
+        <input type="password" name="password" id="password" placeholder="Digite a senha." required>
+        <br>
+
+        <hr class="my-4">
+        <button class="custom-btn btn-3"><span>Login</span></button>
+    </form>
+    <button class="custom-btn btn-center"><a href="/register"><span> Não tem conta? <br> Faça o registro</span></a></button>
+</section>
+
+{{/if}}
+
+
+
