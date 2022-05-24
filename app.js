@@ -39,7 +39,7 @@ const users = require('./routes/user')
 //Mongoose
 
 mongoose.Promise = global.Promise
-mongoose.connect(process.env.MONGO_URL).then(() => {
+mongoose.connect(process.env.DATABASE_URL).then(() => {
     console.log("Conectado ao MongoDB.")
 }).catch((err) => {
     console.log(`Não foi possivel se conectar ao MongoDB: ${err}`)
