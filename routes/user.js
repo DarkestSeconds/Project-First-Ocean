@@ -134,6 +134,7 @@ let names = []
 var test = async (socket) => {
 
     if (queue.length > 0) {
+        
 
         let peer0 = queue[queue.length - 1]
 
@@ -169,6 +170,7 @@ var log = arr => {
 };
 
 router.get('/chat', (req, res) => {
+
     if (!req.user) return res.redirect('/login')
 
     console.log('io')
@@ -255,6 +257,13 @@ router.get('/chat', (req, res) => {
     res.redirect('/login')
 
 
+})
+
+router.get('/redirect', (req, res) => {
+   
+    setTimeout(() => {
+        return res.redirect('/chat')
+    }, 3000)
 })
 
 

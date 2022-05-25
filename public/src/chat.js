@@ -79,7 +79,7 @@ $(document).ready(() => {
 
 
     function newChatButton() {
-        $('body').append('<a href="/chat"> <div id="newChatButtonDiv"> <div id="newChatBtn"> <span>Novo chat</span> </div> <br> <span>Use apenas o botão para iniciar um chat.</span> </div> </a>' )
+        $('body').append('<a href="/redirect"> <div id="newChatButtonDiv"> <div id="newChatBtn"> <span>Novo chat</span> </div> <br> <span>Use apenas o botão para iniciar um chat.</span> </div> </a>' )
     }
 
 
@@ -126,8 +126,11 @@ $(document).ready(() => {
         
     })
 
+  
+
 
     if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+        
         $('#sectionTotal').remove()
         newChatButton()
 
@@ -146,13 +149,6 @@ $(document).ready(() => {
         
     });
 
-
-
-
-
-    window.addEventListener('reload', () => {
-        window.location.href = '/'
-    })
 
 
 })
