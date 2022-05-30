@@ -17,11 +17,11 @@ $(document).ready(() => {
         <div class="card mask-custom">
             <div class="card-header d-flex justify-content-start p-3"
                 style="border-bottom: 1px solid rgba(37, 37, 37, 0.776);">
-                <p class="fw-italic mb-0 user-select-all">${message.author}</p>
+                <p class="fw-italic mb-0 user-select-all">${message.author.replace(/(<([^>]+)>)/ig, '')}</p>
             </div>
             <div class="card-body float-start user-select-all" id="message">
                 <p class="mb-0">
-                ${message.message}
+                ${message.message.replace(/(<([^>]+)>)/ig, '')}
                 </p>
             </div>
         </div>
