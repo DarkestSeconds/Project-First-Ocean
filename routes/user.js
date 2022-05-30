@@ -133,12 +133,22 @@ let names = []
 
 var test = async (socket) => {
 
+    let peer0 = queue[queue.length - 1]
+
     if (queue.length > 0) {
-        
 
-        let peer0 = queue[queue.length - 1]
 
-        queue.pop()
+        peer0Cookie = peer0.handshake.headers.cookie
+        socketCookie = socket.handshake.headers.cookie
+
+        queue.splice(queue.indexOf(peer0), 1)
+
+
+
+        if (peer0Cookie == socketCookie) return socket.emit('sameUser')
+
+        console.log(peer0Cookie)
+        console.log(socketCookie)
 
         console.log(`${peer0.id} saiu do queue.`)
         console.log(queue)
@@ -153,9 +163,11 @@ var test = async (socket) => {
         peer0.emit('chat start', { 'id': socket.id, 'sala': room });
         socket.emit('chat start', { 'id': peer0.id, 'sala': room });
     } else {
+
         queue.push(socket)
         console.log(`${socket.id} entrou no queue`)
         log(queue)
+
     }
 
 }
@@ -168,6 +180,8 @@ var log = arr => {
     }
     console.log('\n');
 };
+
+
 
 router.get('/chat', (req, res) => {
 
@@ -232,19 +246,17 @@ router.get('/chat', (req, res) => {
 
 
 
-
-                userOn = {}
-                allUsers.splice(allUsers.indexOf(userOn), 1)
-                allUsers.pop()
-
-
-
-
             })
         })
 
         socket.on('reloaded', () => {
             socket.leave()
+            allUsers.splice(allUsers.indexOf(userOn), 1)
+
+        })
+
+        socket.on('disconnect', () => {
+            allUsers.splice(allUsers.indexOf(userOn), 1)
         })
 
 
@@ -260,11 +272,38 @@ router.get('/chat', (req, res) => {
 })
 
 router.get('/redirect', (req, res) => {
-   
+
     setTimeout(() => {
         return res.redirect('/chat')
     }, 3000)
 })
+
+
+
+router.get('/perfil', (req, res) => {
+
+    if (req.user) return res.render('users/perfil')
+
+    res.redirect('/login')
+
+})
+
+router.post('/perfil',
+    check('imgPerfil', "Necessário alterar algo.").not().notEmpty(),
+    (req, res) => {
+
+        if (!req.user) return res.redirect('/')
+
+
+        User.findByIdAndUpdate(req.user.id, { $set: { imgPerfil: req.body.imgPerfil } }).then(() => {
+            console.log('mudou')
+            req.flash('success_msg', "Foto de perfil alterada.")
+            return res.redirect('/perfil')
+        }).catch((err) => {
+            req.flash('err_msg', "Ocorreu um erro ao alterar os dados.")
+            return res.redirect('/login')
+        })
+    })
 
 
 
