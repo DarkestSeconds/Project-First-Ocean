@@ -6,9 +6,10 @@ $(document).ready(() => {
 
 
     function otherUser(user) {
-        $('#otherUser').append(`${user}`)
+        $('#otherUser').append(user)
     }
 
+    
 
     function renderMessageSend(message) {
         $('#messagesSec').append(`<li class="d-flex user-select-none justify-content-end mb-4">
@@ -36,11 +37,11 @@ $(document).ready(() => {
         <div class="card mask-custom">
             <div class="card-header d-flex justify-content-start p-3"
                 style="border-bottom: 1px solid rgba(37, 37, 37, 0.776);">
-                <p class="fw-italic mb-0 user-select-all">${message.author}</p>
+                <p class="fw-italic mb-0 user-select-all">${message.author.replace(/(<([^>]+)>)/ig, '')}</p>
             </div>
             <div class="card-body float-start user-select-all" id="message">
                 <p class="mb-0">
-                ${message.message}
+                ${message.message.replace(/(<([^>]+)>)/ig, '')}
                 </p>
             </div>
         </div>
@@ -50,6 +51,11 @@ $(document).ready(() => {
 
 
     function notificationArrive(user) {
+
+        otherUser(user)
+
+        $('#textAreaToAppend').append('<textarea class="form-control rounded-2 bg-dark customTextArea" id="textArea" rows="4"></textarea>')
+        $('#btnToAppend').append('<input type="submit" class="btn btn-dark btn-lg btn-rounded float-end" value="Enviar">')
 
         $('#messagesSec').append(`<li class="d-flex user-select-none mb-4">
         <div class="card mask-custom">
@@ -64,7 +70,7 @@ $(document).ready(() => {
     }
 
     function notificationLeft(user) {
-
+        
         $('#messagesSec').append(`<li class="d-flex user-select-none mb-4">
         <div class="card mask-custom">
             <div class="card-body float-start user-select-all" id="message">
@@ -123,6 +129,7 @@ $(document).ready(() => {
         notificationLeft(user)
         $('#sectionTotal').remove()
         newChatButton()
+        window.location.href = '/'
         
     })
 
@@ -135,6 +142,8 @@ $(document).ready(() => {
         newChatButton()
 
         socket.emit('reloaded')
+        window.location.href = '/'
+        
       }
 
     socket.on('receivedMessage', (message) => {
@@ -142,7 +151,9 @@ $(document).ready(() => {
     })
 
     socket.on('sameUser', () => {
-        alert('Use o botão.')
+        $(document).remove()
+        window.location.href = '/'
+        alert('Erro ao encontrar.')
     })
 
     socket.on('chat start', (data) => {
@@ -151,6 +162,7 @@ $(document).ready(() => {
         console.log(sala);
         
     });
+
 
 
 

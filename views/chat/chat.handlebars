@@ -1,6 +1,6 @@
 <section class="container bgDarkChat w-100 p-3" id="sectionTotal">
 
-    <h3><li id="otherUser">Conversando</li></h3>
+    <h3><li id="otherUser">Conversando com: </li></h3>
     <input type="hidden" id="user" name="user" value="{{user.usuario}}">
     <input type="hidden" id="userImg" name="userImg" value="{{user.imgPerfil}}">
     <hr>
@@ -20,15 +20,14 @@
                             </section>
 
 
-                        <ul class="list-unstyled text-white">
+                        <ul class="list-unstyled text-white" id="btnToAppend">
 
                             <li class="mb-3">
-                                <div class="form-outline">
-                                    <textarea class="form-control rounded-2 bg-dark customTextArea"
-                                        id="textArea" rows="4"></textarea>
+                                <div class="form-outline" id="textAreaToAppend">
+                                    
                                 </div>
                             </li>
-                            <input type="submit" class="btn btn-dark btn-lg btn-rounded float-end" value="Enviar">
+                            
                         </ul>
 
                     </div>

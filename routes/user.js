@@ -13,6 +13,7 @@ const fs = require('fs')
 const path = require('path')
 const { contentType, set } = require('express/lib/response')
 const res = require('express/lib/response')
+const { Script } = require('vm')
 require('../models/User')
 const User = mongoose.model('users')
 
@@ -131,7 +132,7 @@ let rooms = {}
 let queue = []
 let names = []
 
-var test = async (socket) => {
+var test = async (socket, userOn) => {
 
     let peer0 = queue[queue.length - 1]
 
@@ -144,7 +145,9 @@ var test = async (socket) => {
         queue.splice(queue.indexOf(peer0), 1)
 
 
-
+        if (peer0Cookie == socketCookie) allUsers.splice(allUsers.indexOf(userOn), 1)
+        if (peer0Cookie == socketCookie) queue.splice(queue.indexOf(userOn.socket))
+        console.log(allUsers)
         if (peer0Cookie == socketCookie) return socket.emit('sameUser')
 
         console.log(peer0Cookie)
@@ -211,7 +214,7 @@ router.get('/chat', (req, res) => {
         logU(allUsers)
 
 
-        test(socket)
+        test(socket, userOn)
 
 
         //Mensagem de chegada e saída do user no chat.
@@ -221,6 +224,7 @@ router.get('/chat', (req, res) => {
 
                 socket.on('disconnect', () => {
                     socket.in(room.sala).emit('userLeft', user)
+                    allUsers.splice(allUsers.indexOf(userOn), 1)
                     socket.emit('userReload')
                 })
             })
@@ -257,6 +261,8 @@ router.get('/chat', (req, res) => {
 
         socket.on('disconnect', () => {
             allUsers.splice(allUsers.indexOf(userOn), 1)
+
+            
         })
 
 
