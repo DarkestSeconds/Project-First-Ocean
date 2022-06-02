@@ -13,16 +13,16 @@ $(document).ready(async () => {
 
 
     if ($('.button').is('#dwsdmusic')) {
-      playlist = [{ name: "Ruse", author: "Dwsdmusic", src: "/sounds/dwsdmusic/david - ruse.mp3" },
-      { name: "Obvius", author: "Dwsdmusic", src: "/sounds/dwsdmusic/obvious.mp3" },
-      { name: "See You Never", author: "Dwsdmusic", src: "/sounds/dwsdmusic/see you never.mp3" },
-      { name: "Hear Me", author: "Dwsdmusic", src: "/sounds/dwsdmusic/hear me.mp3" },
-      { name: "Truth", author: "Dwsdmusic", src: "/sounds/dwsdmusic/truth.mp3" },
-      { name: "Unplugged", author: "Dwsdmusic", src: "/sounds/dwsdmusic/unplugged.mp3" },
-      { name: "Come Down", author: "Dwsdmusic", src: "/sounds/dwsdmusic/come down.mp3" },
-      { name: "Intro", author: "Dwsdmusic", src: "/sounds/dwsdmusic/intro.mp3" },
-      { name: "One Thousand Times", author: "Dwsdmusic", src: "/sounds/dwsdmusic/one thousand times.mp3" },
-      { name: "Don Krez", author: "Dwsdmusic", src: "/sounds/dwsdmusic/don krez.mp3" }]
+      playlist = [{ name: "Ruse", author: "Dwsdmusic", src: "https://musics.chrisdarkest.repl.co/sounds/Dwsdmusic/ruse.mp3" },
+      { name: "Obvius", author: "Dwsdmusic", src: "https://musics.chrisdarkest.repl.co/sounds/Dwsdmusic/obvious.mp3" },
+      { name: "See You Never", author: "Dwsdmusic", src: "https://musics.chrisdarkest.repl.co/sounds/Dwsdmusic/see_you_never.mp3" },
+      { name: "Hear Me", author: "Dwsdmusic", src: "https://musics.chrisdarkest.repl.co/sounds/Dwsdmusic/hear_me.mp3" },
+      { name: "Truth", author: "Dwsdmusic", src: "https://musics.chrisdarkest.repl.co/sounds/Dwsdmusic/truth.mp3" },
+      { name: "Unplugged", author: "Dwsdmusic", src: "https://musics.chrisdarkest.repl.co/sounds/Dwsdmusic/unplugged.mp3" },
+      { name: "Come Down", author: "Dwsdmusic", src: "https://musics.chrisdarkest.repl.co/sounds/Dwsdmusic/come_down.mp3" },
+      { name: "Intro", author: "Dwsdmusic", src: "https://musics.chrisdarkest.repl.co/sounds/Dwsdmusic/intro.mp3" },
+      { name: "One Thousand Times", author: "Dwsdmusic", src: "https://musics.chrisdarkest.repl.co/sounds/Dwsdmusic/one_thousand_times.mp3" },
+      { name: "Don Krez", author: "Dwsdmusic", src: "https://musics.chrisdarkest.repl.co/sounds/Dwsdmusic/don_krez.mp3" }]
 
 
     }
@@ -61,6 +61,8 @@ $(document).ready(async () => {
     }
 
     player.play()
+
+    player.volume = 0.3
 
 
 
@@ -117,5 +119,7 @@ $(document).ready(async () => {
 
 
 })
+
+
 
 
