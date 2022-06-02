@@ -1,0 +1,156 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    letter-spacing: 1px;
+    transition: all 0.35s linear;
+}
+
+
+.player {
+    position: fixed;
+    bottom: 8px;
+    right: 8px;
+    width: 450px;
+    background-color: #4306576c;
+    display: grid;
+    grid-template-columns: 80px 1fr 48px;
+    grid-gap: 16px;
+    /* padding: 8px 24px; */
+    border-radius: 64px;
+}
+
+.control,#current {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-block: 16px;
+}
+
+#playbtn {
+    font-size: 24px;
+    color: transparent;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: white;
+    cursor: pointer;
+}
+
+#playbtn:hover {
+    -webkit-text-fill-color: white;
+}
+
+.info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+}
+
+#current {
+    text-align: right;
+}
+
+.bar {
+    --space: -4px;
+    background-color: #24242424;
+    overflow: hidden;
+    left: var(--space);
+    right: var(--space);
+    top: var(--space);
+    bottom: var(--space);
+    position: absolute;
+    border-radius: 64px;
+    z-index: -2;
+}
+
+#progress {
+    display: blcok;
+    width: var(--progress,0%);
+    background-color: rgb(20, 19, 19);
+    transition: all 1s linear;
+    height: 100%;
+}
+
+
+
+
+/* pop up */
+#popH2 {
+    text-align: center;
+    font-size: 15px;
+  }
+  
+  .box {
+    width: 50%;
+    margin: 0 auto;
+    padding: 35px;
+    border-radius: 20px/50px;
+    background-clip: padding-box;
+    text-align: center;
+  }
+  
+  .button {
+    font-size: 1em;
+    padding: 10px;
+    color: #fff;
+    border: 2px solid #7800a8;
+    border-radius: 20px/50px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+  }
+  .button:hover {
+    font-size: 14px;
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+  }
+  
+  
+  .popup {
+    margin: 70px auto;
+    padding: 20px;
+    background: rgb(10, 9, 9);
+    border-radius: 5px;
+    width: 40%;
+    position: relative;
+    transition: all 1s ease-in-out;
+  }
+  
+  .popup h2 {
+    margin-top: 0;
+    color: #333;
+    font-family: Tahoma, Arial, sans-serif;
+  }
+  .popup .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .popup .content {
+    max-height: 30%;
+    overflow: auto;
+  }
+  
+  @media screen and (max-width: 700px){
+    .box{
+      width: 30%;
+    }
+    .popup{
+      width: 30%;
+    }
+  }

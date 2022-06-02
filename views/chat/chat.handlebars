@@ -1,6 +1,14 @@
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+<link rel="stylesheet" href="../res/fontawesome/css/all.css" />
+<link rel="stylesheet" href="css/musicPlayer.css" />
+
+
 <section class="container bgDarkChat w-100 p-3" id="sectionTotal">
 
-    <h3><li id="otherUser">Conversando com: </li></h3>
+    <h3>
+        <li id="otherUser">Conversando com: </li>
+    </h3>
     <input type="hidden" id="user" name="user" value="{{user.usuario}}">
     <input type="hidden" id="userImg" name="userImg" value="{{user.imgPerfil}}">
     <hr>
@@ -17,17 +25,17 @@
 
                         <section id="messagesSec">
 
-                            </section>
+                        </section>
 
 
                         <ul class="list-unstyled text-white" id="btnToAppend">
 
                             <li class="mb-3">
                                 <div class="form-outline" id="textAreaToAppend">
-                                    
+
                                 </div>
                             </li>
-                            
+
                         </ul>
 
                     </div>
@@ -44,6 +52,12 @@
 </section>
 
 
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script  src="src/player.js"></script>
 <script id="socket" src="/socket.io/socket.io.js"></script>
-<script defer src="src/chat.js">
+<script src="src/chat.js">
 </script>
