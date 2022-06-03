@@ -77,7 +77,7 @@ router.post('/register',
 
                         new User(newUser).save().then(() => {
                             req.flash('success_msg', "Usuário cadastrado com sucesso.")
-                            return res.redirect('/register')
+                            return res.redirect('/login')
                         }).catch((err) => {
                             req.flash('err_msg', "Houve um erro ao criar o usuário, espere um pouco e tente mais tarde.")
                             console.log(err)

@@ -22,7 +22,13 @@ $(document).ready(async () => {
       { name: "Come Down", author: "Dwsdmusic", src: "https://musics.chrisdarkest.repl.co/sounds/Dwsdmusic/come_down.mp3" },
       { name: "Intro", author: "Dwsdmusic", src: "https://musics.chrisdarkest.repl.co/sounds/Dwsdmusic/intro.mp3" },
       { name: "One Thousand Times", author: "Dwsdmusic", src: "https://musics.chrisdarkest.repl.co/sounds/Dwsdmusic/one_thousand_times.mp3" },
-      { name: "Don Krez", author: "Dwsdmusic", src: "https://musics.chrisdarkest.repl.co/sounds/Dwsdmusic/don_krez.mp3" }]
+      { name: "Don Krez", author: "Dwsdmusic", src: "https://musics.chrisdarkest.repl.co/sounds/Dwsdmusic/don_krez.mp3" },
+      { name: "Talk It Out", author: "Dwsdmusic", src: "https://musics.chrisdarkest.repl.co/sounds/Dwsdmusic/talk_it_out.mp3" },
+      { name: "Vertigo", author: "Dwsdmusic", src: "https://musics.chrisdarkest.repl.co/sounds/Dwsdmusic/vertigo.mp3" },
+      { name: "I Don't Care", author: "Dwsdmusic", src: "https://musics.chrisdarkest.repl.co/sounds/Dwsdmusic/i_dont_care.mp3" },
+      { name: "Professional", author: "Dwsdmusic & Caleblrt", src: "https://musics.chrisdarkest.repl.co/sounds/Dwsdmusic/professional.mp3" },
+    ]
+
 
 
     }
@@ -62,7 +68,7 @@ $(document).ready(async () => {
 
     player.play()
 
-    player.volume = 0.3
+    player.volume = 0.4
 
 
 
