@@ -22,6 +22,10 @@ const user = new Schema({
     eAdmin: {
         type: Number,
         default: 0
+    },
+    isOnline: {
+        type: Boolean,
+        default: false
     }
 })
 

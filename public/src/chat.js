@@ -1,5 +1,14 @@
 $(document).ready(() => {
 
+    var chatIsReady = false
+
+
+    if (chatIsReady == false) {
+        $('body').append('<object type="image/svg+xml" data="img/loading.svg" class="logo container">Loading</object>')
+    }
+
+
+
     const socket = io()
     const chatNsp = io('/chat')
 
@@ -9,7 +18,7 @@ $(document).ready(() => {
         $('#otherUser').append(user)
     }
 
-    
+
 
     function renderMessageSend(message) {
         $('#messagesSec').append(`<li class="d-flex user-select-none justify-content-end mb-4">
@@ -70,7 +79,7 @@ $(document).ready(() => {
     }
 
     function notificationLeft(user) {
-        
+
         $('#messagesSec').append(`<li class="d-flex user-select-none mb-4">
         <div class="card mask-custom">
             <div class="card-body float-start user-select-all" id="message">
@@ -85,7 +94,7 @@ $(document).ready(() => {
 
 
     function newChatButton() {
-        $('body').append('<a href="/redirect"> <div id="newChatButtonDiv"> <div id="newChatBtn"> <span>Novo chat</span> </div> <br> <span>Use apenas o botão para iniciar um chat.</span> </div> </a>' )
+        $('body').append('<a href="/redirect"> <div id="newChatButtonDiv"> <div id="newChatBtn"> <span>Novo chat</span> </div> <br> <span>Use apenas o botão para iniciar um chat.</span> </div> </a>')
     }
 
 
@@ -119,10 +128,10 @@ $(document).ready(() => {
 
     })
 
-    socket.emit('user', $('#user').val() )
+    socket.emit('user', $('#user').val())
 
-   socket.on('userArrive', user => {
-       notificationArrive(user)
+    socket.on('userArrive', user => {
+        notificationArrive(user)
     })
 
     socket.on('userLeft', user => {
@@ -130,21 +139,21 @@ $(document).ready(() => {
         $('#sectionTotal').remove()
         newChatButton()
         window.location.href = '/'
-        
+
     })
 
-  
+
 
 
     if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
-        
+
         $('#sectionTotal').remove()
         newChatButton()
 
         socket.emit('reloaded')
         window.location.href = '/'
-        
-      }
+
+    }
 
     socket.on('receivedMessage', (message) => {
         renderMessageReceived(message)
@@ -152,15 +161,22 @@ $(document).ready(() => {
 
     socket.on('sameUser', () => {
         $(document).remove()
-        window.location.href = '/'
-        alert('Erro ao encontrar.')
+        window.location.href = '/redirect'
+        alert('Carregando...')
     })
 
     socket.on('chat start', (data) => {
+        chatIsReady = true
+
         socket.emit('room', data)
         sala = data.sala;
-        console.log(sala);
-        
+
+        if (chatIsReady == true) {
+            $('#contain').removeClass('hiddenOpt')
+            $('.logo').remove()
+        }
+
+
     });
 
 

@@ -125,7 +125,6 @@ router.get('/logout', (req, res) => {
 })
 
 
-
 let chatMessages = []
 let allUsers = []
 let rooms = {}

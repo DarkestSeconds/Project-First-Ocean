@@ -31,6 +31,7 @@ require('./configs/auth')(passport)
 //routes
 
 const users = require('./routes/user')
+const cookieParser = require('cookie-parser')
 
 
 
@@ -55,6 +56,7 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
+app.use(cookieParser())
 
 app.use(flash())
 
