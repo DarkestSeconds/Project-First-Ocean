@@ -261,7 +261,7 @@ router.get('/chat', (req, res) => {
         socket.on('disconnect', () => {
             allUsers.splice(allUsers.indexOf(userOn), 1)
 
-            
+
         })
 
 
@@ -294,20 +294,28 @@ router.get('/perfil', (req, res) => {
 })
 
 router.post('/perfil',
-    check('imgPerfil', "Necessário alterar algo.").not().notEmpty(),
+    check('imgPerfil', "Necessário alterar algo.").not().exists(),
     (req, res) => {
+
 
         if (!req.user) return res.redirect('/')
 
-
-        User.findByIdAndUpdate(req.user.id, { $set: { imgPerfil: req.body.imgPerfil } }).then(() => {
-            console.log('mudou')
-            req.flash('success_msg', "Foto de perfil alterada.")
+        if (req.body.imgPerfil != undefined) {
+            User.findByIdAndUpdate(req.user.id, { $set: { imgPerfil: req.body.imgPerfil } }).then(() => {
+                console.log('mudou')
+                req.flash('success_msg', "Foto de perfil alterada.")
+                return res.redirect('/perfil')
+            }).catch((err) => {
+                req.flash('err_msg', "Ocorreu um erro ao alterar os dados.")
+                return res.redirect('/login')
+            })
+        } else {
+            req.flash('err_msg', "Nenhuma foto selecionada.")
             return res.redirect('/perfil')
-        }).catch((err) => {
-            req.flash('err_msg', "Ocorreu um erro ao alterar os dados.")
-            return res.redirect('/login')
-        })
+        }
+
+        
+
     })
 
 

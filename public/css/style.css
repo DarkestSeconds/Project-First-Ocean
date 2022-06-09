@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Amiri&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fauna+One&display=swap');
 
 * {
   scroll-behavior: smooth;
   color: aliceblue !important;
-  font-family: 'Amiri', serif;
+  font-family: 'Fauna One', serif;
 }
 
 
@@ -11,7 +11,7 @@ body {
   background-color: #1a192c !important;
   background-repeat: no-repeat;
   background-position: center;
-  height: 1200px;
+  height: 100%;
 
 }
 
@@ -193,6 +193,7 @@ button {
 .chat {
   height: 692px;
   max-height: 692px;
+  margin: 10px;
 }
 
 
@@ -333,12 +334,14 @@ button {
   border-radius: 20px;
   background-position: center;
   position: absolute;
-  margin-top: 100% !important;
+  display: block;
+  bottom: 0;
   right: 0;
   left: 0;
 }
 
 .footerRow {
+  bottom: 0;
   margin: auto;
   position: relative;
   text-align: center;
