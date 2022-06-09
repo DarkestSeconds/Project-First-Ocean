@@ -13,6 +13,7 @@ $(document).ready(() => {
     const chatNsp = io('/chat')
 
 
+    
 
     function otherUser(user) {
         $('#otherUser').append(user)
@@ -64,7 +65,7 @@ $(document).ready(() => {
         otherUser(user)
 
         $('#textAreaToAppend').append('<textarea class="form-control rounded-2 bg-dark customTextArea" id="textArea" rows="4"></textarea>')
-        $('#btnToAppend').append('<input type="submit" class="btn btn-dark btn-lg btn-rounded float-end" value="Enviar">')
+        $('#btnToAppend').append('<input type="submit" class="btn btn-dark btn-lg btn-rounded float-end" id="sendBtn" value="Enviar">')
 
         $('#messagesSec').append(`<li class="d-flex user-select-none mb-4">
         <div class="card mask-custom">
@@ -98,6 +99,16 @@ $(document).ready(() => {
     }
 
 
+
+
+
+
+    
+    document.addEventListener("keypress", (event) => {
+        if (event.key === "Enter" && chatIsReady === true) {
+            $('#sendBtn').click()
+        }
+    })
 
     $('#chat').submit((event) => {
         event.preventDefault()
@@ -162,7 +173,6 @@ $(document).ready(() => {
     socket.on('sameUser', () => {
         $(document).remove()
         window.location.href = '/redirect'
-        alert('Carregando...')
     })
 
     socket.on('chat start', (data) => {
