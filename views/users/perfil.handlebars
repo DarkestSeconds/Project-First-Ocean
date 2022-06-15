@@ -1,5 +1,9 @@
 <link rel="stylesheet" href="/css/perfilUser.css">
 
+<div id="msgs"></div>
+
+
+
 <div class="container page-content page-container" id="page-content">
     <div class="padding">
         <div class="row container d-flex justify-content-center">
@@ -19,50 +23,82 @@
                         </div>
                         <div class="col-sm-8">
                             <div class="card-block">
-                                <h6 class="text-muted m-b-20 p-b-5 b-b-default f-w-600">Informações</h6>
+                                <h6 class="text-muted m-b-20 p-b-5 b-b-default f-w-600">Editar informações</h6>
                                 <div class="row">
-                                    <div class="col-sm-6">
-                                        <p class="text-muted m-b-10 f-w-600">Nome:</p>
-                                        <h6 class="text-muted f-w-400">{{user.usuario}}</h6>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <p class="text-muted m-b-10 f-w-600">Gênero</p>
-                                        <h6 class="text-muted f-w-400">{{user.genero}}</h6>
-                                    </div>
+                                    <form action="/perfil" method="post">
+                                        <div class="col-sm-6">
+                                            <p class="text-muted m-b-10 f-w-600">Nome:</p>
+                                            <h6 type="text" class="text-muted f-w-400" name="username"
+                                                >{{user.usuario}}</h6>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <p class="text-muted m-b-10 f-w-600">Gênero</p>
+                                            {{#if male}}
+                                            <select name="gender" id="generos" class="form-select text-dark">
+                                                <option class="text-dark f-w-400" selected value="{{user.genero}}">
+                                                    {{user.genero}}</option>
+                                                <option class="text-dark f-w-400" value="Feminino">Feminino</option>
+                                                <option class="text-dark f-w-400" value="Nao-binario">Não-binario
+                                                </option>
+                                            </select>
+                                            {{/if}}
+
+                                            {{#if female}}
+                                            <select name="gender" id="generos" class="form-select text-dark">
+                                                <option class="text-dark f-w-400" selected value="{{user.genero}}">
+                                                    {{user.genero}}</option>
+                                                <option class="text-dark f-w-400" value="Masculino">Masculino</option>
+                                                <option class="text-dark f-w-400" value="Nao-binario">Não-binario
+                                                </option>
+                                            </select>
+                                            {{/if}}
+
+                                            {{#if noBinary}}
+                                            <select name="gender" id="generos" class="form-select text-dark">
+                                                <option class="text-dark f-w-400" selected value="{{user.genero}}">
+                                                    {{user.genero}}</option>
+                                                <option class="text-dark f-w-400" value="Feminino">Feminino</option>
+                                                <option class="text-dark f-w-400" value="Masculino">Masculino</option>
+                                            </select>
+                                            {{/if}}
+
+                                        <input type="hidden" name="pickAnteriorGender" value="{{user.genero}}">
+
+                                        </div>
                                 </div>
                                 <h6 class="text-muted m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Mudar imagem de perfil
                                 </h6>
                                 <div class="row">
-                                    <form action="/perfil" method="post" class="col-sm-6 photos">
+                                    <div class="col-sm-6 photos">
 
 
                                         <h4 class="container badge text-dark tituloAnimal">| Dogs |</h4>
 
                                         <div class="PhotoSelect">
                                             <input type="radio" name="imgPerfil" id="imgPerfil1"
-                                                value="img\usersPhotos\dog1.png">
-                                            <img src="img\usersPhotos\dog1.png" class="imgP" height="70"
+                                                value="img/usersPhotos/dog1.png">
+                                            <img src="img/usersPhotos/dog1.png" class="imgP" height="70"
                                                 alt="dog photo #1">
                                         </div>
 
                                         <div class="PhotoSelect">
                                             <input type="radio" name="imgPerfil" id="imgPerfil2"
-                                                value="img\usersPhotos\dog2.png">
-                                            <img src="img\usersPhotos\dog2.png" class="imgP" height="70"
+                                                value="img/usersPhotos/dog2.png">
+                                            <img src="img/usersPhotos/dog2.png" class="imgP" height="70"
                                                 alt="dog photo #2">
                                         </div>
 
                                         <div class="PhotoSelect">
                                             <input type="radio" name="imgPerfil" id="imgPerfil3"
-                                                value="img\usersPhotos\dog3.png">
-                                            <img src="img\usersPhotos\dog3.png" class="imgP" height="70"
+                                                value="img/usersPhotos/dog3.png">
+                                            <img src="img/usersPhotos/dog3.png" class="imgP" height="70"
                                                 alt="dog photo #3">
                                         </div>
 
                                         <div class="PhotoSelect">
                                             <input type="radio" name="imgPerfil" id="imgPerfil4"
-                                                value="img\usersPhotos\dog4.png">
-                                            <img src="img\usersPhotos\dog4.png" class="imgP" height="70"
+                                                value="img/usersPhotos/dog4.png">
+                                            <img src="img/usersPhotos/dog4.png" class="imgP" height="70"
                                                 alt="dog photo #4">
                                         </div>
 
@@ -70,23 +106,36 @@
 
                                         <div class="PhotoSelect">
                                             <input type="radio" name="imgPerfil" id="imgPerfil-animeTanjiro"
-                                                value="img\usersPhotos\anime-tanjiro.png">
-                                            <img src="img\usersPhotos\anime-tanjiro.png" class="imgP rounded-circle"
+                                                value="img/usersPhotos/anime-tanjiro.png">
+                                            <img src="img/usersPhotos/anime-tanjiro.png" class="imgP rounded-circle"
                                                 height="70" alt="dog photo #tanjiro">
                                         </div>
 
                                         <div class="PhotoSelect">
                                             <input type="radio" name="imgPerfil" id="imgPerfil-animeMikasa"
-                                                value="img\usersPhotos\anime-mikasa.png">
-                                            <img src="img\usersPhotos\anime-mikasa.png" class="imgP rounded-circle"
+                                                value="img/usersPhotos/anime-mikasa.png">
+                                            <img src="img/usersPhotos/anime-mikasa.png" class="imgP rounded-circle"
                                                 height="70" alt="anime photo #mikasa">
                                         </div>
 
                                         <div class="PhotoSelect">
                                             <input type="radio" name="imgPerfil" id="imgPerfil-animeAnya"
-                                                value="img\usersPhotos\anime-anya.png">
-                                            <img src="img\usersPhotos\anime-anya.png" class="imgP rounded-circle"
+                                                value="img/usersPhotos/anime-anya.png">
+                                            <img src="img/usersPhotos/anime-anya.png" class="imgP rounded-circle"
                                                 height="70" alt="anime photo #anya">
+                                        </div>
+
+
+                                        
+                                        <div class="PhotoSelect my-5">
+                                            <h4 class="container badge text-dark tituloAnimal mt-3">| Escolha |</h4>
+                                            <label for="submit" class="text-dark">Cole o link da imagem aqui.</label>
+                                            <input type="url" class="text-dark form-control" name="img_submit" id="imgPerfil-submit">
+                                            <ul>
+                                                <li class="text-dark">Só é aceita fotos em ciculos.</li>
+                                                <li class="text-dark">Não será aceita fotos 18+</li>
+                                                <li class="text-dark">Sua imagem pode demorar para ser aceita.</li>
+                                            </ul>
                                         </div>
 
 
@@ -94,7 +143,7 @@
                                             <button
                                                 class="custom-btn btn-register btn-updateUser"><span>Atualizar</span></button>
                                         </div>
-
+                                    </div>
                                     </form>
                                 </div>
                             </div>

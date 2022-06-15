@@ -4,7 +4,6 @@ const express = require('express')
 const { engine } = require('express-handlebars')
 const session = require('express-session')
 const bcrypt = require('bcrypt')
-const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const flash = require('connect-flash')
 
@@ -31,6 +30,10 @@ require('./configs/auth')(passport)
 //routes
 
 const users = require('./routes/user')
+const admin = require('./routes/admin')
+
+
+
 const cookieParser = require('cookie-parser')
 
 
@@ -80,8 +83,8 @@ app.use((req, res, next) => {
 
 // BodyParser
 
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
 
 // Handlebars
@@ -99,13 +102,15 @@ app.set('view engine', 'handlebars')
 
 //Public
 
-app.use(express.static(path.join(__dirname, 'public')))
+app.use('/',express.static(path.join(__dirname, 'public')))
+
+app.use('/admin', express.static(path.join(__dirname, 'public')))
 
 
 // Rotas
 
 app.get('/', (req, res) => {
-    if(req.user) return res.render('index')
+    if(req.user) return res.render('index', {title: "Home - First Ocean"})
 
     res.redirect('/login')
 })
@@ -124,6 +129,9 @@ app.get('/', (req, res) => {
 //Routes
 
 app.use('/', users)
+
+app.use('/admin', admin)
+
 
 
 

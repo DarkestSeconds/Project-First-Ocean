@@ -1,29 +1,35 @@
 const express = require('express')
 
 const io = require('../app')
-const { isUser } = require('../helpers/isUser')
+
 
 const router = express.Router()
 const mongoose = require('mongoose')
+const joi = require('joi')
 const bcrypt = require('bcrypt')
 const passport = require('passport')
-const { check, validationResult } = require('express-validator')
-const { Passport } = require('passport/lib')
+const { check, body, validationResult } = require('express-validator')
 const fs = require('fs')
 const path = require('path')
-const { contentType, set } = require('express/lib/response')
-const res = require('express/lib/response')
 const { Script } = require('vm')
+
 require('../models/User')
 const User = mongoose.model('users')
 
+require('../models/SubmitPhoto')
+const Submit = mongoose.model('photos_submits')
 
+
+
+//data list validation em json
+//imagens de perfil
+const images = require('../data/validation/images.json')
 
 
 //Rotas
 
 router.get('/register', (req, res) => {
-    if (!req.user) return res.render('users/register')
+    if (!req.user) return res.render('users/register', {title: "Register - First Ocean"})
     res.redirect('/')
 })
 
@@ -46,7 +52,7 @@ router.post('/register',
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
             const alerts = errors.array()
-            return res.render('users/register', { errors: alerts, errorPW: errorPwConfirm })
+            return res.render('users/register', { errors: alerts, errorPW: errorPwConfirm, title: "| Register |" })
 
         }
 
@@ -98,7 +104,7 @@ router.post('/register',
     })
 
 router.get('/login', (req, res) => {
-    if (!req.user) return res.render('users/login')
+    if (!req.user) return res.render('users/login', {title: "Login - First Ocean"})
     res.redirect('/')
 
 })
@@ -269,7 +275,7 @@ router.get('/chat', (req, res) => {
 
     })
 
-    if (req.user) return res.render('chat/chat', { messages: chatMessages })
+    if (req.user) return res.render('chat/chat', { messages: chatMessages, title: "Chat Privado" })
 
     res.redirect('/login')
 
@@ -286,37 +292,126 @@ router.get('/redirect', (req, res) => {
 
 
 router.get('/perfil', (req, res) => {
+    if (!req.user) return res.redirect('/login')
 
-    if (req.user) return res.render('users/perfil')
+    //RENDERIZAR INFO DE ACORDO COM GENÊRO
+    switch (req.user.genero) {
+        case 'Masculino':
+            res.render('users/perfil', { male: 'isMale', title: "Perfil - First Ocean" })
+            console.log('homi')
+            break;
+        case 'Feminino':
+            res.render('users/perfil', { female: 'isFemale', title: "Perfil - First Ocean" })
+            console.log('muie')
+            break;
+        case 'Nao-binario':
+            res.render('users/perfil', { noBinary: 'isNoBinary', title: "Perfil - First Ocean" })
+            console.log('nop binary')
+            break;
+    }
 
-    res.redirect('/login')
+
+
+
 
 })
 
-router.post('/perfil',
-    check('imgPerfil', "Necessário alterar algo.").not().exists(),
-    (req, res) => {
+router.post('/perfil', async (req, res, next) => {
 
 
-        if (!req.user) return res.redirect('/')
 
-        if (req.body.imgPerfil != undefined) {
-            User.findByIdAndUpdate(req.user.id, { $set: { imgPerfil: req.body.imgPerfil } }).then(() => {
-                console.log('mudou')
-                req.flash('success_msg', "Foto de perfil alterada.")
-                return res.redirect('/perfil')
-            }).catch((err) => {
-                req.flash('err_msg', "Ocorreu um erro ao alterar os dados.")
-                return res.redirect('/login')
+    if (!req.user) return res.redirect('/')
+
+
+
+    if (req.body.img_submit != "") {
+        await Submit.findOne({ id_usuario: req.user.id }).then((userId) => {
+            if (userId) {
+                io.once('connection', socket => {
+                    socket.emit('err_msg', "Aguarde, você já tem uma solicitação de imagem na fila.")
+                })
+            } else {
+
+                let dataAtual = new Date()
+
+                let dia = dataAtual.getDate()
+                let mes = (dataAtual.getMonth() + 1)
+                let ano = dataAtual.getFullYear()
+
+
+                const newSubmit = {
+                    id_usuario: req.user.id,
+                    nome_usuario: req.user.usuario,
+                    foto_enviada: req.body.img_submit,
+                    data_de_envio_formatada: `${dia}/${mes}/${ano}`,
+                    data_de_envio: dataAtual
+                }
+
+                new Submit(newSubmit).save().then().catch((err) => {
+                    io.once('connection', socket => {
+                        socket.emit('err_msg', "Ocorreu um erro ao registrar a solicitação.")
+                    })
+
+
+                })
+
+            }
+        })
+    }
+
+
+
+    if (req.body.imgPerfil != undefined && images.UserDefault.includes(req.body.imgPerfil) == true) {
+
+
+        await User.findByIdAndUpdate(req.user.id, { $set: { imgPerfil: req.body.imgPerfil } }).then(() => {
+            io.once('connection', socket => {
+                socket.emit('success_msg', "Imagem de perfil alterada com sucesso.")
             })
-        } else {
-            req.flash('err_msg', "Nenhuma foto selecionada.")
-            return res.redirect('/perfil')
-        }
+        }).catch((err) => {
+            io.once('connection', socket => {
+                socket.emit('err_msg', "Ocorreu um erro ao alterar a foto.")
+            })
+        })
+    } else if ( req.body.imgPerfil != undefined && images.UserDefault.includes(req.body.imgPerfil) == false) {
+        io.once('connection', socket => {
+            socket.emit('err_msg', "Essa imagem não consta em nosso banco de dados.")
+        })
+    }
 
-        
 
-    })
+
+
+
+    //checando se o genêro faz parte dos disponiveis pelo site
+    if (req.body.gender != "Masculino" && req.body.genders && 'Feminino' && req.body.genders != 'Nao-binario') {
+        io.once('connection', socket => {
+            socket.emit('err_msg', "O gênero escolhido é inexistente em nosso banco de dados.")
+        })
+
+    }
+
+
+    //genêro só é atualizado se for difrente do gênero atual do usuário
+    if (req.body.gender != req.user.genero) {
+        await User.findByIdAndUpdate(req.user.id, { $set: { genero: req.body.gender } }).then(() => {
+            io.once('connection', socket => {
+                socket.emit('success_msg', "Dados alterados com sucesso.")
+            })
+        }).catch((err) => {
+            io.once('connection', socket => {
+                socket.emit('err_msg', "Ocorreu um erro ao atualizar certos dados.")
+            })
+        })
+    }
+
+
+
+    return res.redirect('/perfil')
+
+
+
+})
 
 
 

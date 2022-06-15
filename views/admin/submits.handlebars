@@ -1,0 +1,48 @@
+<link rel="stylesheet" href="/css/submits.css">
+
+
+    {{#each submit}}
+    <div class="container" id="cardFull">
+
+    
+    <div class="card bg-dark p-5 m-3" id="submitDiv">
+        <hr>
+        <div class="card-block">
+            <h4 class="card-title">Solicitação de imagem de perfil</h4>
+            <h6 class="card-subtitle text-white py-3">Solicitado por: {{nome_usuario}}</h6>
+            <h6 class="card-subtitle text-white py-3">ID do Usuário: {{id_usuario}}</h6>
+        </div>
+        
+        <img src="{{foto_enviada}}" class="image-radius rounded-circle" alt="Imagem solicitada">
+        <div class="card-block">
+            <p class="card-text text-white">Link: {{foto_enviada}}</p>
+            <small class="card-text">Data de envio: {{data_de_envio_formatada}}</small>
+
+            <hr>
+            
+            <div id="buttons-div">
+                <form action="/admin/submits/accept" method="post">
+                <input type="hidden" name="id_submit" value="{{id}}">
+                <input type="hidden" name="id_usuario" value="{{id_usuario}}">
+                <button class="btn btn-primary btn-rounded button-submit" type="submit">Aceitar</button>
+            </form>
+
+            <form action="/admin/submits/denied" method="post">
+                <input type="hidden" name="id_submit" value="{{id}}">
+                <button class="btn btn-secondary btn-rounded button-submit" type="submit">Negar</button>
+            </form>
+            </div>
+            
+
+        </div>
+        <hr>
+    </div>
+
+    </div>
+
+    
+    {{else}}
+
+    <h3 style="text-align: center; margin-top: 5%;">Não há submits.</h3>
+
+    {{/each}}

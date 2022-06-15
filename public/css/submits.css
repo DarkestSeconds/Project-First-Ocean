@@ -1,0 +1,49 @@
+#cardFull {
+    display: flex;
+    justify-content: center;
+}
+
+#submitDiv {
+    width: 70%;
+    text-align: left;
+}
+
+
+.image-radius {
+    height: 10em;
+    width: 10em;
+    border-radius: 5px;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+#buttons-div {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.button-submit {
+    height: 35px;
+    width: 75px;
+}
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:focus {
+    background-color: #bf00d8 !important;
+    border-color: #bf00d8 !important;
+}
+
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:active,
+.btn-secondary:visited,
+.btn-secondary:focus {
+    background-color: #d80019 !important;
+    border-color: #d80019 !important;
+}
+

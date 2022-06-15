@@ -1,5 +1,7 @@
 .padding {
-    padding: 3rem !important
+    padding: 3rem !important;
+    width: 100%;
+    
 }
 
 .user-card-full {
@@ -7,6 +9,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     overflow: hidden;
+    width: 120%;
 }
 
 .card {
