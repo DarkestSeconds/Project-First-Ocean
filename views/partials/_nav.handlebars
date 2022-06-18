@@ -1,11 +1,14 @@
 
 
-<nav class="container navbar navbar-expand-lg navbar-dark bg-dark w-25 user-select-none">
+<nav class="container navbar navbar-dark bg-dark w-25 user-select-none" id="navbarDiv">
   <div class="container-fluid">
     <ul class="navbar-nav">
       {{#if user}}
       <div class="Mydropdown d-flex m-3 p-2">
-        <img src="{{user.imgPerfil}}" class="rounded-circle" height="40" alt="#">
+        <a class="navbar-brand">
+          <img src="{{user.imgPerfil}}" class="rounded-circle" height="40" alt="#">
+        </a>
+        
         <div class="Mydropdown-content" aria-labelledby="dropdownMenuButton">
           <ul class="p-2" style="list-style: none;">
             <li><a class="dropdown-item" href="/">Inicio</a></li>

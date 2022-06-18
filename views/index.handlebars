@@ -1,4 +1,4 @@
-<div class="divForButtonChatIndex">
+<div class="divForButtonChatIndex container">
 
 
     <form action="/chat">
@@ -9,19 +9,22 @@
 </div>
 
 
-
-
-
-<footer class="container footerIndex">
-    <div class="row footerRow">
-
-
-        <div class="col-md pt-4">
-            <h3>Projeto First Ocean</h3>
-            <img height="80px" src="img/squirrel.gif" alt="esquilo em pixels correndo">
-            <p>Criado por: (Darkest)</p>
+<div class="container" id="searchDiv">
+    <label>Ver informações de um usuário.</label>
+    <hr>
+    <form method="get" id="search">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text text-dark" id="basic-addon1">@</span>
+            </div>
+            <input type="text" class="form-control text-dark" placeholder="Nome de Usuário" aria-label="Username"
+                aria-describedby="basic-addon1" id="searchUser">
         </div>
 
+    </form>
 
-    </div>
-</footer>
+</div>
+
+
+
+<script defer src="src/search.js"></script>

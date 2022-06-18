@@ -19,6 +19,17 @@ a {
   text-decoration: none;
 }
 
+@media only screen and (max-width: 320px) {
+  #navbarDiv {
+    background: none !important;
+  }
+
+  .Mydropdown {
+    display: block;
+  }
+}
+
+
 .Mydropdown {
   position: relative;
   display: inline-block;
@@ -146,13 +157,28 @@ button {
 
 /* index div button  */
 .divForButtonChatIndex {
-  position: absolute;
-  display: block;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  
+  margin-top: 20rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5em;
+
 }
+
+#searchDiv {
+  margin-top: 30px !important;
+  text-align: center;
+  width: 250px;
+  padding: 20px;
+  border: 2px #151414 solid;
+}
+
+#searchDiv label {
+  font-size: 12px !important;
+  margin: 3px;
+}
+
+
 
 
 
@@ -315,38 +341,3 @@ button {
   margin-right: auto;
 }
 
-
-
-
-
-
-
-
-
-
-/* Index */
-
-
-.footerIndex {
-  height: 150px;
-  background-image: url('/img/glyu.gif');
-  box-shadow: 0px 0px 16px 5px #020202;
-  border-radius: 20px;
-  background-position: center;
-  position: absolute;
-  display: block;
-  bottom: 0;
-  right: 0;
-  left: 0;
-}
-
-.footerRow {
-  bottom: 0;
-  margin: auto;
-  position: relative;
-  text-align: center;
-}
-
-.footerRow div img {
-  text-align: center;
-}

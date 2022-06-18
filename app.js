@@ -35,6 +35,7 @@ const admin = require('./routes/admin')
 
 
 const cookieParser = require('cookie-parser')
+const { title } = require('process')
 
 
 
@@ -102,9 +103,15 @@ app.set('view engine', 'handlebars')
 
 //Public
 
-app.use('/',express.static(path.join(__dirname, 'public')))
+
+app.use('/', express.static(path.join(__dirname, 'public')))
 
 app.use('/admin', express.static(path.join(__dirname, 'public')))
+
+app.use(express.static(path.join(__dirname, 'public')))
+
+app.use('/perfil', express.static(path.join(__dirname, 'public')))
+
 
 
 // Rotas
@@ -126,13 +133,29 @@ app.get('/', (req, res) => {
 
 
 
+
+
+
 //Routes
 
 app.use('/', users)
 
-app.use('/admin', admin)
+
+app.use('/admin', admin, (req, res, next) => {
+    
+    if (!req.user) return res.redirect('/login')
+
+    if (req.user.eAdmin != 1) res.status(401).render('errors/err401', {title: "Error 401 / 404"})
+
+})
 
 
+//error handler
+app.use((req, res, next) => {
+    if (!req.user) return res.redirect('/login')
+    return res.status(404).render('errors/err404', {title: "Error 404"})
+
+})
 
 
 const PORT = process.env.PORT || 7777

@@ -9,11 +9,11 @@ $(document).ready(() => {
 
 
 
-    const socket = io()
-    const chatNsp = io('/chat')
+    // const socket = io()
+    const socket = io('/chat')
 
 
-    
+
 
     function otherUser(user) {
         $('#otherUser').append(user)
@@ -103,7 +103,7 @@ $(document).ready(() => {
 
 
 
-    
+
     document.addEventListener("keypress", (event) => {
         if (event.key === "Enter" && chatIsReady === true) {
             $('#sendBtn').click()
@@ -127,12 +127,28 @@ $(document).ready(() => {
             }
 
 
+            //checando se a mensagem está em branco. true = em branco, false = contém letras e numeros
+            if ((/^\s*$/).test(message) == false) {
+                renderMessageSend(messageObject)
 
-            renderMessageSend(messageObject)
 
-            document.getElementById('textArea').value = ""
 
-            socket.emit('sendMessage', messageObject)
+                socket.emit('sendMessage', messageObject)
+
+
+                //resetando area do texto
+                $('#textArea').remove()
+
+                $('#textAreaToAppend').append('<textarea class="form-control rounded-2 bg-dark customTextArea" id="textArea" rows="4"></textarea>')
+            } else {
+
+                //resetando area do texto
+                $('#textArea').remove()
+
+                $('#textAreaToAppend').append('<textarea class="form-control rounded-2 bg-dark customTextArea" id="textArea" rows="4"></textarea>')
+            }
+
+
         }
 
 
@@ -177,6 +193,7 @@ $(document).ready(() => {
 
     socket.on('chat start', (data) => {
         chatIsReady = true
+        console.log(chatIsReady)
 
         socket.emit('room', data)
         sala = data.sala;

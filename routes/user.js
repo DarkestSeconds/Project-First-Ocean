@@ -2,7 +2,6 @@ const express = require('express')
 
 const io = require('../app')
 
-
 const router = express.Router()
 const mongoose = require('mongoose')
 const joi = require('joi')
@@ -26,10 +25,15 @@ const Submit = mongoose.model('photos_submits')
 const images = require('../data/validation/images.json')
 
 
+
+
+
+
+
 //Rotas
 
 router.get('/register', (req, res) => {
-    if (!req.user) return res.render('users/register', {title: "Register - First Ocean"})
+    if (!req.user) return res.render('users/register', { title: "Register - First Ocean" })
     res.redirect('/')
 })
 
@@ -56,7 +60,7 @@ router.post('/register',
 
         }
 
-        User.findOne({ usuario: req.body.username }).then((username) => {
+        User.findOne({ usuario: req.body.username }).collation({locale: 'en', strength: 2}).then((username) => {
             if (username) {
                 req.flash('err_msg', "Essa conta já existe.")
                 return res.redirect('/register')
@@ -104,7 +108,7 @@ router.post('/register',
     })
 
 router.get('/login', (req, res) => {
-    if (!req.user) return res.render('users/login', {title: "Login - First Ocean"})
+    if (!req.user) return res.render('users/login', { title: "Login - First Ocean" })
     res.redirect('/')
 
 })
@@ -197,7 +201,7 @@ router.get('/chat', (req, res) => {
 
     console.log('io')
 
-    io.once('connection', async (socket) => {
+    io.of("/chat").once('connection', async (socket) => {
         //usuario conectado + socket
         let userOn = {
             name: req.user.usuario,
@@ -242,8 +246,14 @@ router.get('/chat', (req, res) => {
         socket.on('room', room => {
 
             socket.on('sendMessage', data => {
-                chatMessages.push(data)
-                socket.to(room.id).emit('receivedMessage', data)
+
+
+                if ((/^\s*$/).test(data.message) == false) {
+                    chatMessages.push(data)
+                    socket.to(room.id).emit('receivedMessage', data)
+                }
+
+
 
             })
 
@@ -373,7 +383,7 @@ router.post('/perfil', async (req, res, next) => {
                 socket.emit('err_msg', "Ocorreu um erro ao alterar a foto.")
             })
         })
-    } else if ( req.body.imgPerfil != undefined && images.UserDefault.includes(req.body.imgPerfil) == false) {
+    } else if (req.body.imgPerfil != undefined && images.UserDefault.includes(req.body.imgPerfil) == false) {
         io.once('connection', socket => {
             socket.emit('err_msg', "Essa imagem não consta em nosso banco de dados.")
         })
@@ -410,6 +420,31 @@ router.post('/perfil', async (req, res, next) => {
     return res.redirect('/perfil')
 
 
+
+})
+
+
+router.get('/perfil/:username', (req, res) => {
+
+    if (!req.user) return res.redirect('/login')
+
+    
+    User.findOne({usuario: req.params['username']}).collation({locale: 'en', strength: 2}).then((user) => {
+        if (user) {
+            return res.render('users/otherUserPerfil', {userFound: user, title: `${user.usuario} - Perfil`})
+        } else {
+            return res.render('users/otherUserPerfil', {title: "Usuário inexistente"})
+        }
+    }).catch((err) => {
+        io.once('connection', socket => {
+            socket.emit('err_msg', "Erro ao iniciar busca ao usuário.")
+            return res.redirect('/')
+        })
+    })
+
+    
+
+    
 
 })
 
