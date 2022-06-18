@@ -33,7 +33,7 @@ const images = require('../data/validation/images.json')
 //Rotas
 
 router.get('/register', (req, res) => {
-    if (!req.user) return res.render('users/register', { title: "Register - First Ocean" })
+    if (!req.user) return res.render('users/register', { title: "Registro - First Ocean" })
     res.redirect('/')
 })
 
@@ -131,7 +131,7 @@ router.post('/login', (req, res, next) => {
 router.get('/logout', (req, res) => {
     req.logout()
     req.flash('success_msg', "Deslogado.")
-    res.redirect('/register')
+    res.redirect('/login')
 })
 
 
@@ -247,7 +247,7 @@ router.get('/chat', (req, res) => {
 
             socket.on('sendMessage', data => {
 
-
+                //checando se esta vazia
                 if ((/^\s*$/).test(data.message) == false) {
                     chatMessages.push(data)
                     socket.to(room.id).emit('receivedMessage', data)
@@ -394,15 +394,9 @@ router.post('/perfil', async (req, res, next) => {
 
 
     //checando se o genêro faz parte dos disponiveis pelo site
-    if (req.body.gender != "Masculino" && req.body.genders && 'Feminino' && req.body.genders != 'Nao-binario') {
-        io.once('connection', socket => {
-            socket.emit('err_msg', "O gênero escolhido é inexistente em nosso banco de dados.")
-        })
-
-    }
-
-
-    //genêro só é atualizado se for difrente do gênero atual do usuário
+    if (req.body.gender == 'Masculino' || req.body.gender == 'Feminino'|| req.body.gender == 'Nao-binario') {
+        
+        //genêro só é atualizado se for difrente do gênero atual do usuário
     if (req.body.gender != req.user.genero) {
         await User.findByIdAndUpdate(req.user.id, { $set: { genero: req.body.gender } }).then(() => {
             io.once('connection', socket => {
@@ -415,9 +409,18 @@ router.post('/perfil', async (req, res, next) => {
         })
     }
 
+    } else {
+        io.once('connection', socket => {
+            socket.emit('err_msg', "O gênero escolhido é inexistente em nosso banco de dados.")
+        })
+    }
 
 
-    return res.redirect('/perfil')
+    
+
+
+
+    res.redirect('/perfil')
 
 
 
