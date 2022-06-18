@@ -140,6 +140,12 @@ $(document).ready(() => {
                 $('#textArea').remove()
 
                 $('#textAreaToAppend').append('<textarea class="form-control rounded-2 bg-dark customTextArea" id="textArea" rows="4"></textarea>')
+
+                setTimeout(() => {
+                    document.getElementById('textArea').focus();
+                }, 500)
+
+                
             } else {
 
                 //resetando area do texto
@@ -147,7 +153,13 @@ $(document).ready(() => {
 
                 $('#textAreaToAppend').append('<textarea class="form-control rounded-2 bg-dark customTextArea" id="textArea" rows="4"></textarea>')
 
-                document.getElementById('textArea').focus()
+                setTimeout(() => {
+                    document.getElementById('textArea').focus();
+                }, 500)
+
+
+
+
             }
 
 
