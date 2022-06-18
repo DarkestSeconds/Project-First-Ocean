@@ -147,7 +147,7 @@ $(document).ready(() => {
 
                 $('#textAreaToAppend').append('<textarea class="form-control rounded-2 bg-dark customTextArea" id="textArea" rows="4"></textarea>')
 
-                $('#textArea').focus()
+                document.getElementById('textArea').focus()
             }
 
 
